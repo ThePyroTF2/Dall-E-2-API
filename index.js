@@ -90,7 +90,7 @@ const imageGen = async () => {
             url: imageBitlyLink
         })
         fs.writeFile(
-            'images.json',
+            'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API/images.json',
             JSON.stringify({
                 images: images
             }, null, 4),
