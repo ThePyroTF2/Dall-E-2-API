@@ -13,6 +13,7 @@ const git = simpleGit(options);
 const main = async () => {
     await git.add('testgit.js')
     await git.commit('test')
+    await git.push('main')
 }
 
 main()
