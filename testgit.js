@@ -12,3 +12,5 @@ const options = {
 const git = simpleGit(options);
 
 git.commit('testing simple-git')
+
+console.log('committed!')
