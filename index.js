@@ -8,7 +8,9 @@ const simpleGit = require('simple-git');
 const { help } = require("yargs");
 simpleGit().clean(simpleGit.CleanOptions.FORCE)
 const git = simpleGit({baseDir: 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'});
+
 const version = '1.0.0'
+const thisDir = 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'
 
 // Setup openai API
 const configuration = new Configuration({
@@ -47,9 +49,9 @@ const imageGen = async () => {
         console.log('Saving image...')
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        await fs.writeFile(`C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API/images/${prompt}.png`, buffer, (err) => {
+        await fs.writeFile(`${thisDir}/images/${prompt}.png`, buffer, (err) => {
             if(err) throw err
-            console.log('Image saved')
+            console.log(`Image saved to ${thisDir}/images/${prompt}.png`)
         })
 
         // Push saved image to github repo
@@ -83,20 +85,20 @@ const imageGen = async () => {
 
         // Add image URL and information to images.json
         console.log('Saving image info to images.json...')
-        let images = JSON.parse(fs.readFileSync('C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API/images.json')).images
+        let images = JSON.parse(fs.readFileSync(`${thisDir}/images.json`)).images
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
             url: imageBitlyLink
         })
         fs.writeFile(
-            'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API/images.json',
+            `${thisDir}/images.json`,
             JSON.stringify({
                 images: images
             }, null, 4),
             (err) => {
                 if(err) throw err
-                console.log('Image info saved')
+                console.log(`Image info saved to ${thisDir}/images.json`)
             }
         )
         await git.add('images.json')
