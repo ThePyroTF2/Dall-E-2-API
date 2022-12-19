@@ -7,7 +7,7 @@ const fs = require('fs')
 const simpleGit = require('simple-git');
 const { help } = require("yargs");
 simpleGit().clean(simpleGit.CleanOptions.FORCE)
-const git = simpleGit();
+const git = simpleGit({baseDir: 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'});
 const version = '1.0.0'
 
 // Setup openai API
