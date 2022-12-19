@@ -5,9 +5,10 @@ const flags = yargs(hideBin(process.argv)).argv
 const openSite = require('open')
 const fs = require('fs')
 const simpleGit = require('simple-git');
-const { help: showHelp } = require("yargs");
+const { help } = require("yargs");
 simpleGit().clean(simpleGit.CleanOptions.FORCE)
 const git = simpleGit();
+const version = '1.0.0'
 
 // Setup openai API
 const configuration = new Configuration({
@@ -15,15 +16,19 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-if(!flags.prompt && !flags.p) throw new Error('Error: no prompt given.')
 let prompt = flags.prompt ? flags.prompt : flags.p
 let size = flags.size ? flags.size : (flags.s ? flags.s : '1024x1024')
 
-const showHelp = () => {
+const helpCommand = () => {
     console.log("DALL-E | Generates an image using OpenAI's DALL-E 2 API\n\nOptions:\n\n--prompt, -p: [Required] Prompt for DALL-E 2 to generate\n--size, -s: Size of the image, 1024x1024, 512x512, or 256x256. 1024x1024 by default.\n\nCommands:\n\n--help, -h: Displays help\n--version, -v: Displays program information")
 }
 
+const versionCommand = () => {
+    console.log(`DALL-E v${version}`)
+}
+
 const imageGen = async () => {
+        if(!flags.prompt && !flags.p) throw new Error('Error: no prompt given.')
         console.log('Generating image...')
 
         // Generate image from prompt in command-line argument
@@ -100,7 +105,7 @@ const imageGen = async () => {
 const main = async () => {
     try {
         if(flags.help || flags.h) {
-            showHelp()
+            helpCommand()
             return
         }
         imageGen()
