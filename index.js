@@ -30,12 +30,12 @@ const main = async () => {
 
         // Get OpenAI-provided URL
         let openAIURL = response.data.data[0].url
-        const imgResult = fetch(openAIURL)
+        const imgResult = await fetch(openAIURL)
 
         // Save to a file
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        await fs.writeFile(`./images/${prompt}.png`, buffer)
+        await fs.writeFile(`./images/${prompt}.png`, buffer, () => console.log('Image saved!'))
 
         // Push saved image to github repo
         await git.add(`images/${prompt}.png`)
@@ -63,14 +63,14 @@ const main = async () => {
         console.log(`Image URL: ${imageBitlyLink}`)
 
         // Add image URL and information to images.json
-        let images = JSON.parse(fs.readFileSync('exe/images.json')).images
+        let images = JSON.parse(fs.readFileSync('images.json')).images
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
             url: imageBitlyLink
         })
         fs.writeFile(
-            'exe/images.json',
+            'images.json',
             JSON.stringify({
                 images: images
             }, null, 4),
