@@ -1,7 +1,7 @@
 {
   "name": "dall-e_2_api",
   "version": "1.0.0",
-  "description": "Generates images using the DALL-E 2 API",
+  "description": "A node.js script that generates images using OpenAI's DALL-E 2 API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
