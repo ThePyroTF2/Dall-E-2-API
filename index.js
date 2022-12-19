@@ -108,6 +108,10 @@ const main = async () => {
             helpCommand()
             return
         }
+        if(flags.version || flags.v) {
+            versionCommand()
+            return
+        }
         imageGen()
     }
 
