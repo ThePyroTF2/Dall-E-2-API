@@ -14,6 +14,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+console.log('Generating image...')
 
 const main = async () => {
     try {
@@ -27,23 +28,31 @@ const main = async () => {
             n: 1,
             size: size
         });
+        console.log('Image generated')
 
         // Get OpenAI-provided URL
         let openAIURL = response.data.data[0].url
         const imgResult = await fetch(openAIURL)
 
         // Save to a file
+        console.log('Saving image...')
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        await fs.writeFile(`./images/${prompt}.png`, buffer, () => console.log('Image saved!'))
+        await fs.writeFile(`./images/${prompt}.png`, buffer, (err) => {
+            if(err) throw err
+            console.log('Image saved')
+        })
 
         // Push saved image to github repo
+        console.log('Uploading to GitHub...')
         await git.add(`images/${prompt}.png`)
         await git.add('images.json')
-        await git.commit(`add image. Prompt: ${prompt}`)
+        await git.commit(`Add image. Prompt: ${prompt}`)
         await git.push('main')
+        console.log('Uploaded to GitHub')
 
         // Shorten image URL with Bitly
+        console.log('Shortening URL...')
         let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${prompt}.png`
         let imageBitlyRes = await fetch('https://api-ssl.bitly.com/v4/shorten', {
             method: 'POST',
@@ -56,13 +65,16 @@ const main = async () => {
                 "group_guid": process.env.BitlyGUID
             })
         })
+        console.log('Link shortened with Bitly')
         let imageBitlyBody = await imageBitlyRes.json()
         let imageBitlyLink = `https://www.${imageBitlyBody.id}`
 
+        console.log('Opening image in browser...')
         openSite(imageBitlyLink)
-        console.log(`Image URL: ${imageBitlyLink}`)
+        console.log(`Image opened. URL: ${imageBitlyLink}`)
 
         // Add image URL and information to images.json
+        console.log('Saving image info to images.json...')
         let images = JSON.parse(fs.readFileSync('images.json')).images
         images.push({
             prompt: prompt,
@@ -76,9 +88,10 @@ const main = async () => {
             }, null, 4),
             (err) => {
                 if(err) throw err
-                console.log('Image URL saved')
+                console.log('Image info saved')
             }
         )
+        await git.commit('Add new image to images.json')
     }
 
     catch (error) {
