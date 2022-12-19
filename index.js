@@ -21,6 +21,14 @@ const openai = new OpenAIApi(configuration);
 let prompt = flags.prompt ? flags.prompt : flags.p
 let size = flags.size ? flags.size : (flags.s ? flags.s : '1024x1024')
 
+const fileNameNumber = async (prompt) => {
+    let n = 1
+    while(await fs.readFile(`${thisDir}/images/${prompt} (${n}).png`, (err) => {if(err) return false})) {
+        n++
+    }
+    return `${prompt} (${n}).png`
+}
+
 const helpCommand = () => {
     console.log("DALL-E | Generates an image using OpenAI's DALL-E 2 API\n\nOptions:\n\n--prompt, -p: [Required] Prompt for DALL-E 2 to generate\n--size, -s: Size of the image, 1024x1024, 512x512, or 256x256. 1024x1024 by default.\n\nCommands:\n\n--help, -h: Displays help\n--version, -v: Displays program information")
 }
@@ -49,21 +57,22 @@ const imageGen = async () => {
         console.log('Saving image...')
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        await fs.writeFile(`${thisDir}/images/${prompt}.png`, buffer, (err) => {
+        let fileName = fs.readFileSync(`${thisDir}/images/${prompt}.png`) ? await fileNameNumber(prompt) : `${prompt}.png`
+        await fs.writeFile(`${thisDir}/images/${fileName}`, buffer, (err) => {
             if(err) throw err
-            console.log(`Image saved to ${thisDir}/images/${prompt}.png`)
+            console.log(`Image saved to ${thisDir}/images/${fileName}`)
         })
 
         // Push saved image to github repo
         console.log('Uploading to GitHub...')
-        await git.add(`images/${prompt}.png`)
+        await git.add(`images/${fileName}`)
         await git.commit(`Add image. Prompt: ${prompt}`)
         await git.push('main')
         console.log('Uploaded to GitHub')
 
         // Shorten image URL with Bitly
         console.log('Shortening URL...')
-        let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${prompt}.png`
+        let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${fileName}`
         let imageBitlyRes = await fetch('https://api-ssl.bitly.com/v4/shorten', {
             method: 'POST',
             headers: {
