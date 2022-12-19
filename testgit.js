@@ -11,6 +11,5 @@ const options = {
 // when setting all options in a single object
 const git = simpleGit(options);
 
-git.commit('testing simple-git')
-
-console.log('committed!')
+git.add('testgit.js')
+git.commit('test')
