@@ -47,7 +47,7 @@ const imageGen = async () => {
         console.log('Saving image...')
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        await fs.writeFile(`./images/${prompt}.png`, buffer, (err) => {
+        await fs.writeFile(`C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API/images/${prompt}.png`, buffer, (err) => {
             if(err) throw err
             console.log('Image saved')
         })
@@ -83,7 +83,7 @@ const imageGen = async () => {
 
         // Add image URL and information to images.json
         console.log('Saving image info to images.json...')
-        let images = JSON.parse(fs.readFileSync('images.json')).images
+        let images = JSON.parse(fs.readFileSync('C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API/images.json')).images
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
