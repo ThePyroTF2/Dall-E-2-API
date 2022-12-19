@@ -28,18 +28,23 @@ const main = async () => {
             size: size
         });
 
-        // Shorten image URL with Bitly
+        // Get OpenAI-provided URL
         let openAIURL = response.data.data[0].url
         const imgResult = fetch(openAIURL)
 
         // Save to a file
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        fs.writeFileSync(`./images/${prompt}.png`, buffer)
+        await fs.writeFile(`./images/${prompt}.png`, buffer)
 
         // Push saved image to github repo
-        git.push('main')
-        let imageURL = null
+        await git.add(`images/${prompt}.png`)
+        await git.add('images.json')
+        await git.commit(`add image. Prompt: ${prompt}`)
+        await git.push('main')
+
+        // Shorten image URL with Bitly
+        let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${prompt}.png`
         let imageBitlyRes = await fetch('https://api-ssl.bitly.com/v4/shorten', {
             method: 'POST',
             headers: {
