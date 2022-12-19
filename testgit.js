@@ -10,6 +10,9 @@ const options = {
 
 // when setting all options in a single object
 const git = simpleGit(options);
+const main = async () => {
+    await git.add('testgit.js')
+    await git.commit('test')
+}
 
-git.add('testgit.js')
-git.commit('test')
+main()
