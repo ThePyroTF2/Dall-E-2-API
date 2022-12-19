@@ -46,7 +46,6 @@ const main = async () => {
         // Push saved image to github repo
         console.log('Uploading to GitHub...')
         await git.add(`images/${prompt}.png`)
-        await git.add('images.json')
         await git.commit(`Add image. Prompt: ${prompt}`)
         await git.push('main')
         console.log('Uploaded to GitHub')
@@ -91,6 +90,7 @@ const main = async () => {
                 console.log('Image info saved')
             }
         )
+        await git.add('images.json')
         await git.commit('Add new image to images.json')
     }
 
