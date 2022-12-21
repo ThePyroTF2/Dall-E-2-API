@@ -30,12 +30,10 @@ const fileCheck = async (filePath) => {
     catch (error) {
         exists = false
     }
-    console.log(`${filePath} ${exists ? 'exists' : 'does not exist'}`)
     return exists
 }
 
 const getDedupedFilePath = async (filePath) => {
-    console.log('getDedupedFilePath called')
     let n = 1
     let ogFileName = path.basename(filePath)
     let ogFileNameSplit = ogFileName.split('.')
@@ -43,8 +41,6 @@ const getDedupedFilePath = async (filePath) => {
     let newFilePath = `${path.dirname(filePath)}/${newFileName}`
 
     while(await fileCheck(newFilePath)) {
-        console.log(newFileName)
-        console.log(`n: ${n}`)
         n++
         newFileName = `${ogFileNameSplit[0]} (${n}).${ogFileNameSplit[1]}`
         newFilePath = `${path.dirname(filePath)}/${newFileName}`
