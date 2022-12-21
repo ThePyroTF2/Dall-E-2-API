@@ -8,6 +8,7 @@ const simpleGit = require('simple-git');
 const { help } = require("yargs");
 simpleGit().clean(simpleGit.CleanOptions.FORCE)
 const git = simpleGit({baseDir: 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'});
+const path = require('path')
 
 const version = '1.0.0'
 const thisDir = 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'
@@ -21,12 +22,34 @@ const openai = new OpenAIApi(configuration);
 let prompt = flags.prompt ? flags.prompt : flags.p
 let size = flags.size ? flags.size : (flags.s ? flags.s : '1024x1024')
 
-const fileNameNumber = async (prompt) => {
-    let n = 1
-    while(await fs.readFile(`${thisDir}/images/${prompt} (${n}).png`, (err) => {if(err) return false})) {
-        n++
+const fileCheck = async (filePath) => {
+    let exists = true
+    try {
+        await fs.promises.readFile(filePath)
     }
-    return `${prompt} (${n}).png`
+    catch (error) {
+        exists = false
+    }
+    console.log(`${filePath} ${exists ? 'exists' : 'does not exist'}`)
+    return exists
+}
+
+const getDedupedFilePath = async (filePath) => {
+    console.log('getDedupedFilePath called')
+    let n = 1
+    let ogFileName = path.basename(filePath)
+    let ogFileNameSplit = ogFileName.split('.')
+    let newFileName = `${ogFileNameSplit[0]} (${n}).${ogFileNameSplit[1]}`
+    let newFilePath = `${path.dirname(filePath)}/${newFileName}`
+
+    while(await fileCheck(newFilePath)) {
+        console.log(newFileName)
+        console.log(`n: ${n}`)
+        n++
+        newFileName = `${ogFileNameSplit[0]} (${n}).${ogFileNameSplit[1]}`
+        newFilePath = `${path.dirname(filePath)}/${newFileName}`
+    }
+    return newFilePath
 }
 
 const helpCommand = () => {
@@ -38,7 +61,7 @@ const versionCommand = () => {
 }
 
 const imageGen = async () => {
-        if(!flags.prompt && !flags.p) throw new Error('Error: no prompt given.')
+        if(!prompt) throw new Error('Error: no prompt given.')
         console.log('Generating image...')
 
         // Generate image from prompt in command-line argument
@@ -57,22 +80,25 @@ const imageGen = async () => {
         console.log('Saving image...')
         const blob = await imgResult.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
-        let fileName = fs.readFileSync(`${thisDir}/images/${prompt}.png`) ? await fileNameNumber(prompt) : `${prompt}.png`
-        await fs.writeFile(`${thisDir}/images/${fileName}`, buffer, (err) => {
+        let filePathPromptName = `${thisDir}/images/${prompt}.png`
+        let isDupe = await fileCheck(filePathPromptName)
+        let filePathRealName = isDupe ? await getDedupedFilePath(filePathPromptName) : filePathPromptName
+
+        await fs.writeFile(filePathRealName, buffer, (err) => {
             if(err) throw err
-            console.log(`Image saved to ${thisDir}/images/${fileName}`)
+            console.log(`Image saved to ${filePathRealName}`)
         })
 
         // Push saved image to github repo
         console.log('Uploading to GitHub...')
-        await git.add(`images/${fileName}`)
+        await git.add(filePathRealName)
         await git.commit(`Add image. Prompt: ${prompt}`)
         await git.push('main')
         console.log('Uploaded to GitHub')
 
         // Shorten image URL with Bitly
         console.log('Shortening URL...')
-        let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${fileName}`
+        let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${path.basename(filePathRealName)}`
         let imageBitlyRes = await fetch('https://api-ssl.bitly.com/v4/shorten', {
             method: 'POST',
             headers: {
