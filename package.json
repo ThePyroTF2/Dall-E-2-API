@@ -2,7 +2,7 @@
   "name": "dall-e_2_api",
   "version": "1.0.0",
   "description": "A node.js script that generates images using OpenAI's DALL-E 2 API",
-  "main": "index.js",
+  "main": "DALL-E.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pkg index.js -o DALL-E.exe -t latest-win-x64"
