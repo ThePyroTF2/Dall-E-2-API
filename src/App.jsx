@@ -43,6 +43,7 @@ const App = () => {
         <div className="App">
             <SearchBar UpdateFunction={updateImages} ImageList={statefulImageList}/>
             <ImageList ImageList={imageListElements}/>
+            <a href="https://github.com/ThePyroTF2/DALL-E-2-API" className="SourceLink">Source code</a>
         </div>
     )
 }
