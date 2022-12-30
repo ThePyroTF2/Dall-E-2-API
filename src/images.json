@@ -69,6 +69,11 @@
             "prompt": "the year 3000",
             "timestamp": "1672380002033",
             "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/the year 3000.png"
+        },
+        {
+            "prompt": "Github",
+            "timestamp": "1672384392936",
+            "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/Github.png"
         }
     ]
 }
