@@ -92,27 +92,11 @@ const imageGen = async () => {
         await git.push('main')
         console.log('Uploaded to GitHub')
 
-        // Shorten image URL with Bitly
-        console.log('Shortening URL...')
+        // Open URL in browser
         let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${path.basename(filePathRealName)}`
-        let imageBitlyRes = await fetch('https://api-ssl.bitly.com/v4/shorten', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${process.env.BitlyAPIKey}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "long_url": imageURL,
-                "group_guid": process.env.BitlyGUID
-            })
-        })
-        console.log('Link shortened with Bitly')
-        let imageBitlyBody = await imageBitlyRes.json()
-        let imageBitlyLink = `https://www.${imageBitlyBody.id}`
-
         console.log('Opening image in browser...')
-        openSite(imageBitlyLink)
-        console.log(`Image opened. URL: ${imageBitlyLink}`)
+        openSite(imageURL)
+        console.log(`Image opened. URL: ${imageURL}`)
 
         // Add image URL and information to images.json
         console.log('Saving image info to images.json...')
@@ -120,7 +104,7 @@ const imageGen = async () => {
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
-            url: imageBitlyLink
+            url: imageURL
         })
         fs.writeFile(
             `${thisDir}/src/images.json`,
