@@ -116,20 +116,20 @@ const imageGen = async () => {
 
         // Add image URL and information to images.json
         console.log('Saving image info to images.json...')
-        let images = JSON.parse(fs.readFileSync(`${thisDir}/images.json`)).images
+        let images = JSON.parse(fs.readFileSync(`${thisDir}/src/images.json`)).images
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
             url: imageBitlyLink
         })
         fs.writeFile(
-            `${thisDir}/images.json`,
+            `${thisDir}/src/images.json`,
             JSON.stringify({
                 images: images
             }, null, 4),
             (err) => {
                 if(err) throw err
-                console.log(`Image info saved to ${thisDir}/images.json`)
+                console.log(`Image info saved to ${thisDir}/src/images.json`)
             }
         )
         await git.add('images.json')
