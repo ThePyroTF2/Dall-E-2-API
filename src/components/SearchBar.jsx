@@ -15,7 +15,6 @@ function SearchBar(props) {
                 return item.item
             })
         }
-        console.log(imageList)
         props.UpdateFunction(query != '' ? imageList : props.ImageList)
     }
 
