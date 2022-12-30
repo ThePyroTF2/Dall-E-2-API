@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/DALL-E-2-API/static/css/main.be9ef0da.css",
-    "main.js": "/DALL-E-2-API/static/js/main.478a5e07.js",
+    "main.css": "/DALL-E-2-API/static/css/main.cece4f58.css",
+    "main.js": "/DALL-E-2-API/static/js/main.c2acf8cd.js",
     "static/js/787.2456fc64.chunk.js": "/DALL-E-2-API/static/js/787.2456fc64.chunk.js",
     "index.html": "/DALL-E-2-API/index.html",
-    "main.be9ef0da.css.map": "/DALL-E-2-API/static/css/main.be9ef0da.css.map",
-    "main.478a5e07.js.map": "/DALL-E-2-API/static/js/main.478a5e07.js.map",
+    "main.cece4f58.css.map": "/DALL-E-2-API/static/css/main.cece4f58.css.map",
+    "main.c2acf8cd.js.map": "/DALL-E-2-API/static/js/main.c2acf8cd.js.map",
     "787.2456fc64.chunk.js.map": "/DALL-E-2-API/static/js/787.2456fc64.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be9ef0da.css",
-    "static/js/main.478a5e07.js"
+    "static/css/main.cece4f58.css",
+    "static/js/main.c2acf8cd.js"
   ]
 }
