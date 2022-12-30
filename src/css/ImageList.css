@@ -1,0 +1,16 @@
+img {
+    border: 5px solid black;
+}
+
+.imageList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image {
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+}
