@@ -15,7 +15,7 @@ function SearchBar(props) {
                 return item.item
             })
         }
-        props.UpdateFunction(query != '' ? imageList : props.ImageList)
+        props.UpdateFunction(query !== '' ? imageList : props.ImageList)
     }
 
     return (
@@ -26,7 +26,7 @@ function SearchBar(props) {
                     setPromptQuery(event.target.value)
                 }}
                 onKeyDown = {event => {
-                    if(event.key == 'Enter') search(promptQuery)
+                    if(event.key === 'Enter') search(promptQuery)
                 }}
             />
             <br/>

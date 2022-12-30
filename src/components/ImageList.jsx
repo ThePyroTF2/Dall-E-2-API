@@ -1,6 +1,5 @@
-import { React, useEffect, useState } from 'react';
+import React from 'react';
 import '../css/ImageList.css'
-const moment = require('moment')
 
 const ImageList = props => {
 

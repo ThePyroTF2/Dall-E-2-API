@@ -10,24 +10,28 @@ const App = () => {
     const [statefulImageList, setStatefulImageList] = useState(null)
 
     const updateImages = (newList) => {
-        setImageListElements(newList.images.map(image => {
-            let imageDate = moment(Number(image.timestamp))
+        setImageListElements(
+            newList.images.length !== 0 ?
+                newList.images.map(image => {
+                    let imageDate = moment(Number(image.timestamp))
 
-            return(
-                <div className='image'>
-                    <a href={image.url} target="_blank" rel="noopener noreferrer">
-                        <img src={image.url} alt={image.prompt} width="200" height="200"/>
-                    </a>
-                    <p><i>"{image.prompt}". Generated on {imageDate.format('dddd, MMMM Do, YYYY, h:mm:ssa UTCZ')}</i></p>
-                </div>
-        )}))
+                    return(
+                        <div className='image'>
+                            <a href={image.url} target="_blank" rel="noopener noreferrer">
+                                <img src={image.url} alt={image.prompt} width="200" height="200"/>
+                            </a>
+                            <p><i>"{image.prompt}". Generated on {imageDate.format('dddd, MMMM Do, YYYY, h:mm:ssa UTCZ')}</i></p>
+                        </div>
+                )})
+            : 
+                <p>No results</p>
+        )
     }
 
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/src/images.json').then(res => {
             return res.json()
         }).then(data => {
-            console.log(data)
             unstatefulImageList = data
             updateImages(unstatefulImageList)
             setStatefulImageList(unstatefulImageList)
