@@ -94,7 +94,7 @@ const imageGen = async () => {
 
         // Shorten image URL with Bitly
         console.log('Shortening URL...')
-        let imageURL = `https://github.com/ThePyroTF2/DALL-E-2-API/tree/master/images/${path.basename(filePathRealName)}`
+        let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${path.basename(filePathRealName)}`
         let imageBitlyRes = await fetch('https://api-ssl.bitly.com/v4/shorten', {
             method: 'POST',
             headers: {
