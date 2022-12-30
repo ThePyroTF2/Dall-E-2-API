@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A node.js script that generates images using OpenAI's DALL-E 2 API",
   "main": "DALL-E.js",
+  "homepage": "https://ThePyroTF2.github.io/DALL-E-2-API",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -16,6 +17,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "fs": "^0.0.1-security",
+    "gh-pages": "^4.0.0",
     "open": "^8.4.0",
     "openai": "^3.1.0",
     "path": "^0.12.7",

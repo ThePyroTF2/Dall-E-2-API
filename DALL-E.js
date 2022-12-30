@@ -89,7 +89,6 @@ const imageGen = async () => {
         console.log('Uploading to GitHub...')
         await git.add(filePathRealName)
         await git.commit(`Add image. Prompt: ${prompt}`)
-        await git.push('main')
         console.log('Uploaded to GitHub')
 
         // Open URL in browser
@@ -116,8 +115,9 @@ const imageGen = async () => {
                 console.log(`Image info saved to ${thisDir}/src/images.json`)
             }
         )
-        await git.add(`${thisDir}src/images.json`)
+        await git.add(`${thisDir}/src/images.json`)
         await git.commit('Add new image to images.json')
+        await git.push('origin')
 }
 const main = async () => {
     try {
