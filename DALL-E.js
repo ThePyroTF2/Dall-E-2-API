@@ -118,6 +118,7 @@ const imageGen = async () => {
         )
         await git.add(`${thisDir}/src/images.json`)
         await git.commit('Add new image to images.json')
+        await git.push('origin')
 }
 const main = async () => {
     try {
