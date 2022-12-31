@@ -5,12 +5,12 @@ import ImageList from './components/ImageList'
 const moment = require('moment')
 
 const App = () => {
-    const [imageListElements, setImageListElements] = useState(null)
-    let unstatefulImageList
-    const [statefulImageList, setStatefulImageList] = useState(null)
+    const [elementsArray, setElementsArray] = useState(null)
+    let unstatefulObjectsArray
+    const [statefulObjectsArray, setStatefulObjectsArray] = useState(null)
 
     const updateImages = (newList) => {
-        setImageListElements(
+        setElementsArray(
             newList.images.length !== 0 ?
                 newList.images.map(image => {
                     let imageDate = moment(Number(image.timestamp))
@@ -29,20 +29,22 @@ const App = () => {
     }
 
     useEffect(() => {
-        fetch('https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/src/images.json').then(res => {
+        fetch('https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/src/images.json')
+        .then(res => {
             return res.json()
-        }).then(data => {
-            unstatefulImageList = data
-            updateImages(unstatefulImageList)
-            setStatefulImageList(unstatefulImageList)
+        })
+        .then(data => {
+            unstatefulObjectsArray = data
+            updateImages(unstatefulObjectsArray)
+            setStatefulObjectsArray(unstatefulObjectsArray)
         })
     }, [])
 
 
     return (
         <div className="App">
-            <SearchBar UpdateFunction={updateImages} ImageList={statefulImageList}/>
-            <ImageList ImageList={imageListElements}/>
+            <SearchBar UpdateImagesFunction={updateImages} ImageList={statefulObjectsArray}/>
+            <ImageList ImageList={elementsArray}/>
             <a href="https://github.com/ThePyroTF2/DALL-E-2-API" className="SourceLink">Source code</a>
         </div>
     )

@@ -7,15 +7,15 @@ function SearchBar(props) {
     const [promptQuery, setPromptQuery] = useState('')
 
     const search = query => {
-        let imageList = new Fuse(props.ImageList.images, {
+        let filteredImageList = new Fuse(props.ImageList.images, {
             keys: ['prompt']
         })
-        imageList = {
-            images: imageList.search(query).map(item => {
+        filteredImageList = {
+            images: filteredImageList.search(query).map(item => {
                 return item.item
             })
         }
-        props.UpdateFunction(query !== '' ? imageList : props.ImageList)
+        props.UpdateImageFunction(query !== '' ? filteredImageList : props.ImageList)
     }
 
     return (
