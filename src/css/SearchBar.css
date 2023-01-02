@@ -20,11 +20,7 @@ button {
     position: relative;
     overflow: hidden;
     transition: 400ms;
-    font-family: var(--font)
-
-}
-
-button:hover{
-    background-color: white;
-    color: black;
+    font-family: var(--font);
+    width: 75px;
+    height: 25px
 }

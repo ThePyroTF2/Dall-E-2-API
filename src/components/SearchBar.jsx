@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../css/SearchBar.css'
 import Fuse from 'fuse.js';
+import { RippleButton } from './RippleButton';
 
 function SearchBar(props) {
     const [promptQuery, setPromptQuery] = useState('')
@@ -15,7 +16,7 @@ function SearchBar(props) {
                 return item.item
             })
         }
-        props.UpdateImageFunction(query !== '' ? filteredImageList : props.ImageList)
+        props.UpdateImagesFunction(query !== '' ? filteredImageList : props.ImageList)
     }
 
     return (
@@ -30,7 +31,7 @@ function SearchBar(props) {
                 }}
             />
             <br/>
-            <button onClick={() => search(promptQuery)}>Search</button>
+            <RippleButton search={search} prompt={promptQuery}>Search</RippleButton>
         </div>
     )
 }

@@ -1,0 +1,46 @@
+:root {
+    --clicked-bg: rgb(181, 209, 0);
+}
+
+.ripple_btn > .ripple {
+    position: absolute;
+    background-color: var(--clicked-bg);
+    border-color: white;
+    border-width: 5px;
+
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+
+    animation: ripple-effect 600ms ease 1 forwards;
+}
+
+@keyframes ripple-effect {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    }80% {
+        width: 150px;
+        height: 150px;
+        opacity: 1;
+    }100% {
+        opacity: 0;
+    }
+}
+
+.ripple_btn > .content {
+    position: relative;
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+button:hover{
+    background-color: white;
+    color: black;
+}
+
+.clicked {
+    background-color: var(--clicked-bg);
+    color: black;
+}
