@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import '../css/RippleButton.css'
 
-export const RippleButton = ({ children, search, prompt}) => {
+export const RippleButton = ({ children, search, prompt, startDate, endDate}) => {
     const [isRipple, setIsRipple] = useState(true)
     const [coords, setCoords] = useState({x: -1, y: -1})
     const [isClicked, setIsClicked] = useState('')
@@ -26,7 +26,7 @@ export const RippleButton = ({ children, search, prompt}) => {
         <button
             className={`ripple_btn ${isClicked}`}
             onClick={(event) => {
-                search(prompt)
+                search(prompt, startDate, endDate)
                 setCoords({
                     x: event.clientX - event.target.offsetLeft,
                     y: event.clientY - event.target.offsetTop
