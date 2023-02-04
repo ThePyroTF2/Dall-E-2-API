@@ -3,21 +3,32 @@ import { useState } from 'react';
 import '../css/SearchBar.css'
 import Fuse from 'fuse.js';
 import { RippleButton } from './RippleButton';
+import type { ObjectArrayImages } from '../App'
+import type { ImageObject } from '../App'
 
-function SearchBar(props) {
+type props = {
+    ImageList: ObjectArrayImages
+    UpdateImagesFunction: Function
+}
+
+function SearchBar(props: props) {
+    type FuseItem = {
+        item: any
+    }
+
     const [promptQuery, setPromptQuery] = useState('')
     const [startDate, setStartDate] = useState(0)
     const [endDate, setEndDate] = useState(Infinity)
 
-    const search = (query, startDate, endDate) => {
-        let filteredImageList = new Fuse(props.ImageList.images, {
+    const search = (query: string, startDate: number, endDate: number) => {
+        let filteredImageList: any = new Fuse(props.ImageList.images, {
             keys: ['prompt']
         })
         filteredImageList = {
             images: filteredImageList
                 .search(query)
-                .filter(item => item.item.timestamp > startDate && item.item.timestamp < endDate)
-                .map(item => {return item.item})
+                .filter((item: FuseItem)=> item.item.timestamp > startDate && item.item.timestamp < endDate)
+                .map((item: FuseItem)=> {return item.item})
         }
         console.log(filteredImageList)
         props.UpdateImagesFunction(query !== '' ? filteredImageList : props.ImageList)
@@ -31,7 +42,7 @@ function SearchBar(props) {
                     setPromptQuery(event.target.value)
                 }}
                 onKeyDown = {event => {
-                    if(event.key === 'Enter') search(promptQuery)
+                    if(event.key === 'Enter') search(promptQuery, 0, Infinity)
                 }}
             />
             <br/>

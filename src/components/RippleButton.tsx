@@ -1,7 +1,15 @@
-import { React, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../css/RippleButton.css'
 
-export const RippleButton = ({ children, search, prompt, startDate, endDate}) => {
+type props = {
+    children: any
+    search: Function
+    prompt: string
+    startDate: number
+    endDate: number
+}
+
+export const RippleButton = ({ children, search, prompt, startDate, endDate }: props) => {
     const [isRipple, setIsRipple] = useState(true)
     const [coords, setCoords] = useState({x: -1, y: -1})
     const [isClicked, setIsClicked] = useState('')

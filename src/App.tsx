@@ -1,15 +1,25 @@
-import { React, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import './css/App.css'
 import SearchBar from './components/SearchBar'
 import ImageList from './components/ImageList'
 const moment = require('moment')
 
-const App = () => {
-    const [elementsArray, setElementsArray] = useState(null)
-    let unstatefulObjectsArray
-    const [statefulObjectsArray, setStatefulObjectsArray] = useState(null)
+type ImageObject = {
+    prompt: string
+    url: string
+    timestamp: number
+}
 
-    const updateImages = (newList) => {
+type ObjectArrayImages = {
+    images: Array<ImageObject>
+}
+
+const App = () => {
+    const [elementsArray, setElementsArray] = useState<JSX.Element[] | JSX.Element>()
+    let unstatefulObjectsArray: ObjectArrayImages
+    const [statefulObjectsArray, setStatefulObjectsArray] = useState<ObjectArrayImages>({images: []})
+
+    const updateImages = (newList: ObjectArrayImages) => {
         setElementsArray(
             newList.images.length !== 0 ?
                 newList.images.map(image => {
@@ -51,3 +61,5 @@ const App = () => {
 }
 
 export default App
+export type { ObjectArrayImages }
+export type { ImageObject }
