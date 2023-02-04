@@ -36,8 +36,8 @@ export const RippleButton = ({ children, search, prompt, startDate, endDate }: p
             onClick={(event) => {
                 search(prompt, startDate, endDate)
                 setCoords({
-                    x: event.clientX - event.target.offsetLeft,
-                    y: event.clientY - event.target.offsetTop
+                    x: event.clientX - event.currentTarget.offsetLeft,
+                    y: event.clientY - event.currentTarget.offsetTop
                 })
             }}
         >

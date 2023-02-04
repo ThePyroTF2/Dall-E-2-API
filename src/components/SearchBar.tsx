@@ -30,7 +30,6 @@ function SearchBar(props: props) {
                 .filter((item: FuseItem)=> item.item.timestamp > startDate && item.item.timestamp < endDate)
                 .map((item: FuseItem)=> {return item.item})
         }
-        console.log(filteredImageList)
         props.UpdateImagesFunction(query !== '' ? filteredImageList : props.ImageList)
     }
 
