@@ -119,6 +119,11 @@
             "prompt": "denoland",
             "timestamp": "1675570022138",
             "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/denoland.png"
+        },
+        {
+            "prompt": "A cat in a suit and tie",
+            "timestamp": "1675655884732",
+            "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/A cat in a suit and tie.png"
         }
     ]
 }
