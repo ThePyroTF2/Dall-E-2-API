@@ -1,4 +1,4 @@
-const version = '1.1.0'
+const version = '1.1.1'
 const thisDir = 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'
 
 const { Configuration, OpenAIApi } = require("openai");
