@@ -124,6 +124,11 @@
             "prompt": "A cat in a suit and tie",
             "timestamp": "1675655884732",
             "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/A cat in a suit and tie.png"
+        },
+        {
+            "prompt": "Super Mario as a Mexican Luchadore",
+            "timestamp": "1675656044651",
+            "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/Super Mario as a Mexican Luchadore.png"
         }
     ]
 }
