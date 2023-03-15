@@ -70,16 +70,16 @@ const imageGen = async () => {
             prompt: prompt,
             n: 1,
             size: size
-        });
-        console.log('Image generated')
+        })
+        console.log('Image generated.')
 
         // Get OpenAI-provided URL
         let openAIURL = response.data.data[0].url
-        const imgResult = await fetch(openAIURL)
+        const imgResponse = await fetch(openAIURL)
 
         // Save to a file
         console.log('Saving image...')
-        const blob = await imgResult.blob()
+        const blob = await imgResponse.blob()
         const buffer = Buffer.from(await blob.arrayBuffer())
         let filePathPromptName = `${thisDir}/images/${prompt}.png`
         let isDupe = await fileCheck(filePathPromptName)
@@ -94,8 +94,9 @@ const imageGen = async () => {
         console.log('Uploading to GitHub...')
         await git.add(filePathRealName)
         await git.commit(`Add image. Prompt: ${prompt}`)
-        await git.push('origin')
-        console.log('Uploaded to GitHub')
+        await git.push('origin').then(() => {
+            console.log('Uploaded to GitHub')
+        })
 
         // Open URL in browser
         let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${encodeURIComponent(path.basename(filePathRealName))}`
