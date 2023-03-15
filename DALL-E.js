@@ -1,4 +1,4 @@
-const version = '1.1.1'
+const version = '1.1.2'
 const thisDir = '/Users/Devin/Documents/DALL-E-2-API'
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -18,7 +18,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-let prompt = flags.prompt ? flags.prompt : flags.p
 let size = flags.size ? flags.size : (flags.s ? flags.s : '1024x1024')
 
 const fileCheck = async (filePath) => {
@@ -48,7 +47,7 @@ const getDedupedFilePath = async (filePath) => {
 }
 
 const helpCommand = () => {
-    console.log("DALL-E | Generates an image using OpenAI's DALL-E 2 API\n\nOptions:\n\n--prompt, -p: [Required] Prompt for DALL-E 2 to generate\n--size, -s: Size of the image, 1024x1024, 512x512, or 256x256. 1024x1024 by default.\n\nCommands:\n\n--help, -h: Displays help\n--version, -v: Displays program information")
+    console.log("DALL-E | Generates an image using OpenAI's DALL-E 2 API\n\nOptions:\n\n--prompt, -p: [Required] Prompt for DALL-E 2 to generate\n--size, -s: Size of the image, 1024x1024, 512x512, or 256x256. 1024x1024 by default.\n\nCommands:\n\n--help, -h: Displays help\n--version, -v: Displays program information\n--regen: generates an image using the last prompt given")
 }
 
 const versionCommand = () => {
@@ -56,6 +55,10 @@ const versionCommand = () => {
 }
 
 const imageGen = async () => {
+        let prompt
+        let images = JSON.parse(fs.readFileSync(`${thisDir}/src/images.json`)).images
+        if(flags.regen) prompt = images[images.length - 1].prompt
+        if(flags.prompt || flags.p) prompt = flags.prompt ? flags.prompt : flags.p
         if(!prompt) throw new Error('Error: no prompt given.')
         console.log('Generating image...')
 
@@ -99,7 +102,6 @@ const imageGen = async () => {
 
         // Add image URL and information to images.json
         console.log('Saving image info to images.json...')
-        let images = JSON.parse(fs.readFileSync(`${thisDir}/src/images.json`)).images
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
