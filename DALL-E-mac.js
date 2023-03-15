@@ -1,5 +1,6 @@
 const version = '1.1.2'
-const thisDir = '/Users/Devin/Documents/DALL-E-2-API'
+const OS = 'Mac OS'
+const thisDir = '/usr/local/share/DALL-E'
 
 const { Configuration, OpenAIApi } = require("openai");
 const yargs = require('yargs/yargs')
@@ -12,9 +13,11 @@ simpleGit().clean(simpleGit.CleanOptions.FORCE)
 const git = simpleGit({baseDir: thisDir});
 const path = require('path')
 
+const ApiKey = JSON.parse(fs.readFileSync(`${thisDir}/API-KET.json`)).ApiKey
+
 // Setup openai API
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_KEY,
+    apiKey: ApiKey,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -31,7 +34,7 @@ const fileCheck = async (filePath) => {
     return exists
 }
 
-const getDedupedFilePath = async (filePath) => {
+const getUndupedFilePath = async (filePath) => {
     let n = 1
     let ogFileName = path.basename(filePath)
     let ogFileNameSplit = ogFileName.split('.')
@@ -47,11 +50,11 @@ const getDedupedFilePath = async (filePath) => {
 }
 
 const helpCommand = () => {
-    console.log("DALL-E | Generates an image using OpenAI's DALL-E 2 API\n\nOptions:\n\n--prompt, -p: [Required] Prompt for DALL-E 2 to generate\n--size, -s: Size of the image, 1024x1024, 512x512, or 256x256. 1024x1024 by default.\n\nCommands:\n\n--help, -h: Displays help\n--version, -v: Displays program information\n--regen: generates an image using the last prompt given")
+    console.log("DALL-E | Generates an image using OpenAI's DALL-E 2 API\n\nOptions:\n\n-prompt, -p: [Required] Prompt for DALL-E 2 to generate\n-size, -s: Size of the image, 1024x1024, 512x512, or 256x256. 1024x1024 by default.\n\nCommands:\n\n-help, -h: Displays help\n-version, -v: Displays program information\n-regen: generates an image using the last prompt given")
 }
 
 const versionCommand = () => {
-    console.log(`DALL-E v${version}`)
+    console.log(`DALL-E v${version} for ${OS}`)
 }
 
 const imageGen = async () => {
@@ -80,7 +83,7 @@ const imageGen = async () => {
         const buffer = Buffer.from(await blob.arrayBuffer())
         let filePathPromptName = `${thisDir}/images/${prompt}.png`
         let isDupe = await fileCheck(filePathPromptName)
-        let filePathRealName = isDupe ? await getDedupedFilePath(filePathPromptName) : filePathPromptName
+        let filePathRealName = isDupe ? await getUndupedFilePath(filePathPromptName) : filePathPromptName
 
         await fs.writeFile(filePathRealName, buffer, (err) => {
             if(err) throw err
