@@ -13,7 +13,7 @@ simpleGit().clean(simpleGit.CleanOptions.FORCE)
 const git = simpleGit({baseDir: thisDir});
 const path = require('path')
 
-const ApiKey = JSON.parse(fs.readFileSync(`${thisDir}/API-KET.json`)).ApiKey
+const ApiKey = JSON.parse(fs.readFileSync(`${thisDir}/API-KEY.json`)).ApiKey
 
 // Setup openai API
 const configuration = new Configuration({
