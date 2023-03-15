@@ -159,6 +159,11 @@
             "prompt": "a beagle eating a waffle while holding a fork and a knife",
             "timestamp": "1678891418229",
             "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/a%20beagle%20eating%20a%20waffle%20while%20holding%20a%20fork%20and%20a%20knife.png"
+        },
+        {
+            "prompt": "an anthropromorphic beagle eating a waffle while holding a fork and a knife in its hands",
+            "timestamp": "1678891469370",
+            "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/an%20anthropromorphic%20beagle%20eating%20a%20waffle%20while%20holding%20a%20fork%20and%20a%20knife%20in%20its%20hands.png"
         }
     ]
 }
