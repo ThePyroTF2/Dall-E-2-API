@@ -1,5 +1,5 @@
 const version = '1.1.1'
-const thisDir = '~/Documents/DALL-E_2_API'
+const thisDir = '/Users/Devin/Documents/DALL-E-2-API'
 
 const { Configuration, OpenAIApi } = require("openai");
 const yargs = require('yargs/yargs')
