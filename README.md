@@ -79,11 +79,11 @@ At the top of the file, find the following snippet:
 ```js
 // Setup openai API
 const configuration = new Configuration({
-    apiKey: process.env.OpenAIKey,
+    apiKey: process.env.OPENAI_KEY,
 });
 ```
 
-Change that bit that says `OpenAIKey` to whatever you named your environment variable just now.
+Change that bit that says `OPENAI_KEY` to whatever you named your environment variable just now.
 
 ### 4. <br> Swap out your Github info
 
