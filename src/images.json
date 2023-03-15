@@ -139,6 +139,11 @@
             "prompt": "a really, really, really small apple",
             "timestamp": "1678888941348",
             "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/a really, really, really small apple.png"
+        },
+        {
+            "prompt": "Who's on first?",
+            "timestamp": "1678889981721",
+            "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/Who's on first?.png"
         }
     ]
 }
