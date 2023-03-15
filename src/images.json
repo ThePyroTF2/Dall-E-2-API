@@ -149,6 +149,11 @@
             "prompt": "who's on first?",
             "timestamp": "1678891039395",
             "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/who's%20on%20first%3F%20(1).png"
+        },
+        {
+            "prompt": "a beagle eating a waffle with a fork and a knife",
+            "timestamp": "1678891372344",
+            "url": "https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/a%20beagle%20eating%20a%20waffle%20with%20a%20fork%20and%20a%20knife.png"
         }
     ]
 }
