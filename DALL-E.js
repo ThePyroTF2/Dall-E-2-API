@@ -92,7 +92,7 @@ const imageGen = async () => {
         console.log('Uploaded to GitHub')
 
         // Open URL in browser
-        let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${path.basename(filePathRealName)}`
+        let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${encodeURIComponent(path.basename(filePathRealName))}`
         console.log('Opening image in browser...')
         openSite(imageURL)
         console.log(`Image opened. URL: ${imageURL}`)
