@@ -25,3 +25,5 @@ yarn-error.log*
 package-lock.json
 
 DALL-E*
+
+API-KEY.json
