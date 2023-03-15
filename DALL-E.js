@@ -1,5 +1,5 @@
 const version = '1.1.1'
-const thisDir = 'C:/Users/Devin/Desktop/VSCode Projects/DALL-E_2_API'
+const thisDir = '~/Documents/DALL-E_2_API'
 
 const { Configuration, OpenAIApi } = require("openai");
 const yargs = require('yargs/yargs')
@@ -8,14 +8,13 @@ const flags = yargs(hideBin(process.argv)).argv
 const openSite = require('open')
 const fs = require('fs')
 const simpleGit = require('simple-git');
-const { help } = require("yargs");
 simpleGit().clean(simpleGit.CleanOptions.FORCE)
 const git = simpleGit({baseDir: thisDir});
 const path = require('path')
 
 // Setup openai API
 const configuration = new Configuration({
-    apiKey: process.env.OpenAIKey,
+    apiKey: process.env.OPENAI_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
