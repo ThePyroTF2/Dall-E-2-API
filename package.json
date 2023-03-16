@@ -8,7 +8,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "package-windows": "npx pkg DALL-E-windows.js --targets latest-win-x64 -o 'C:\\Program Files\\DALL-E\\DALL-E.exe'",
+    "package-mac": "npx pkg DALL-E-mac.js --targets latest-mac-x64 -o /usr/local/bin/DALL-E"
   },
   "author": "Devin",
   "license": "ISC",
