@@ -63,7 +63,7 @@ const imageGen = async () => {
         if(flags.regen) prompt = images[images.length - 1].prompt
         if(flags.prompt || flags.p) prompt = flags.prompt ? flags.prompt : flags.p
         if(!prompt) throw new Error('Error: no prompt given.')
-        console.log('Generating image...')
+        console.log(`Prompt: ${prompt}\nGenerating image...`)
 
         // Generate image from prompt in command-line argument
         const response = await openai.createImage({
