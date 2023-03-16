@@ -71,7 +71,9 @@ const imageGen = async () => {
             n: 1,
             size: size
         })
-        console.log('Image generated.')
+        .then(() => {
+            console.log('Image generated.')
+        })
 
         // Get OpenAI-provided URL
         let openAIURL = response.data.data[0].url
@@ -85,45 +87,37 @@ const imageGen = async () => {
         let isDupe = await fileCheck(filePathPromptName)
         let filePathRealName = isDupe ? await getUndupedFilePath(filePathPromptName) : filePathPromptName
 
-        await fs.writeFile(filePathRealName, buffer, (err) => {
-            if(err) throw err
-            console.log(`Image saved to ${filePathRealName}`)
-        })
-
-        // Push saved image to github repo
-        console.log('Uploading to GitHub...')
-        await git.add(filePathRealName)
-        await git.commit(`Add image. Prompt: ${prompt}`)
-        await git.push('origin').then(() => {
-            console.log('Uploaded to GitHub')
-        })
-
-        // Open URL in browser
-        let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${encodeURIComponent(path.basename(filePathRealName))}`
-        console.log('Opening image in browser...')
-        openSite(imageURL)
-        console.log(`Image opened. URL: ${imageURL}`)
+        await fs.promises.writeFile(filePathRealName, buffer).then(console.log(`Image saved to ${filePathRealName}`))
 
         // Add image URL and information to images.json
+        let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${encodeURIComponent(path.basename(filePathRealName))}`
         console.log('Saving image info to images.json...')
         images.push({
             prompt: prompt,
             timestamp: Date.now().toString(),
             url: imageURL
         })
-        fs.writeFile(
+        await fs.promises.writeFile(
             `${thisDir}/src/images.json`,
             JSON.stringify({
                 images: images
-            }, null, 4),
-            (err) => {
-                if(err) throw err
-                console.log(`Image info saved to ${thisDir}/src/images.json`)
-            }
-        )
-        await git.add(`${thisDir}/src/images.json`)
-        await git.commit('Add new image to images.json')
-        await git.push('origin')
+            }, null, 4)
+        ).then(() => {
+            console.log(`Image info saved to ${thisDir}/src/images.json`)
+        })
+
+        // Push saved image to github repo
+        console.log('Uploading to GitHub...')
+        await git.add(thisDir)
+        await git.commit(`Add image. Prompt: ${prompt}`)
+        await git.push('origin').then(() => {
+            console.log('Uploaded to GitHub')
+        })
+
+        // Open URL in browser
+        console.log('Opening image in browser...')
+        openSite(imageURL)
+        console.log(`Image opened. URL: ${imageURL}`)
 }
 const main = async () => {
     try {
