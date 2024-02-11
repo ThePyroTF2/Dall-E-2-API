@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A node.js script that generates images using OpenAI's DALL-E 2 API",
   "main": "DALL-E.js",
-  "homepage": "https://ThePyroTF2.github.io/DALL-E-2-API",
+  "homepage": "https://justDeeevin.github.io/DALL-E-2-API",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",

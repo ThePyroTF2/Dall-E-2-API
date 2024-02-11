@@ -1,6 +1,6 @@
 # A DALL-E image generation script
 
-### ***WARNING: THIS PROJECT IS NOT PLUG-AND-PLAY.***
+### **_WARNING: THIS PROJECT IS NOT PLUG-AND-PLAY._**
 
 You need to do some work if you want it to work on your machine. Instructions to do so are below.
 
@@ -23,7 +23,7 @@ First you'll need to [install Node](https://nodejs.org/en/). I reccomend using `
 
 If you skimmed the page instead of just pushing the button immediately, you'll have found out that Node is a way to run javascript from the terminal instead of in the browser. It's basically what makes this thing work.
 
-Node *should* have installed npm, or Node Package Manager, with it. If you feel like it, double-check by running
+Node _should_ have installed npm, or Node Package Manager, with it. If you feel like it, double-check by running
 
 ```bash
 npm --version
@@ -31,7 +31,7 @@ npm --version
 
 in your terminal.
 
-Oh yeah, quick note: This tutorial assumes you're on a Windows machine. I will note wherever something different needs to be done for Mac OS (linux WIP). Also, all terminal interactions (such as the one I just showed) moving forward should be in Windows Powershell, ***not*** command line. So don't launch `cmd.exe` or anything. Search for 'Terminal', launch that one. *There's also a hotkey. `Win+x; i`, or `Win+x; a` for opening one with admin perms*
+Oh yeah, quick note: This tutorial assumes you're on a Windows machine. I will note wherever something different needs to be done for Mac OS (linux WIP). Also, all terminal interactions (such as the one I just showed) moving forward should be in Windows Powershell, **_not_** command line. So don't launch `cmd.exe` or anything. Search for 'Terminal', launch that one. _There's also a hotkey. `Win+x; i`, or `Win+x; a` for opening one with admin perms_
 
 npm is a tool that, wait for it, manages packages. You can install applications with it (you can even install npm with npm), but you can also download packages that add cool stuff to javascript, like a function to open websites in the browser.
 
@@ -58,7 +58,7 @@ The first thing that needs to change is the fact that this script is set up with
 First, [sign up for the OpenAI API](https://beta.openai.com/signup). Once signed in, the page should look like this
 ![A screenshot of the homepage of the OpenAI API webpage](readme.images/OpenAI%20API%20homepage.png)
 
-Click on your profile picture at the top right of the page, and click `View API keys`. Create a new secret key. ***Don't lose this or share it with anyone***.
+Click on your profile picture at the top right of the page, and click `View API keys`. Create a new secret key. **_Don't lose this or share it with anyone_**.
 
 We're gonna put that secret key in what's called an environment variable. Environment variables are variables that are stored in the OS itself and can be accessed by applications. With this, you can set the value of a variable without having that value visible in the code itself. This is useful for many reasons. In this case, we're using it to keep the API key hidden.
 
@@ -79,7 +79,7 @@ At the top of the file, find the following snippet:
 ```js
 // Setup openai API
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_KEY,
+  apiKey: process.env.OPENAI_KEY,
 });
 ```
 
@@ -91,28 +91,32 @@ On line 95 of DALL-E.js, you should see this snippet:
 
 ```js
 // Open URL in browser
-let imageURL = `https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/images/${path.basename(filePathRealName)}`
-console.log('Opening image in browser...')
-openSite(imageURL)
-console.log(`Image opened. URL: ${imageURL}`)
+let imageURL = `https://raw.githubusercontent.com/justDeeevin/DALL-E-2-API/master/images/${path.basename(
+  filePathRealName,
+)}`;
+console.log("Opening image in browser...");
+openSite(imageURL);
+console.log(`Image opened. URL: ${imageURL}`);
 ```
 
-Change `ThePyroTF2` in the url to whatever your Github username is.
+Change `justDeeevin` in the url to whatever your Github username is.
 
 Open `App.tsx`, located in the `src` folder. On line 41, you should see this snippet:
 
 ```tsx
 useEffect(() => {
-    fetch('https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/src/images.json')
-    .then(res => {
-        return res.json()
+  fetch(
+    "https://raw.githubusercontent.com/justDeeevin/DALL-E-2-API/master/src/images.json",
+  )
+    .then((res) => {
+      return res.json();
     })
-    .then(data => {
-        unstatefulObjectsArray = data
-        updateImages(unstatefulObjectsArray)
-        setStatefulObjectsArray(unstatefulObjectsArray)
-    })
-}, [])
+    .then((data) => {
+      unstatefulObjectsArray = data;
+      updateImages(unstatefulObjectsArray);
+      setStatefulObjectsArray(unstatefulObjectsArray);
+    });
+}, []);
 ```
 
 Make the same username change here.
@@ -122,7 +126,7 @@ If you want, you can also change the username at line 58 of `App.tsx` as well.
 At line 6 of `package.json`, you should see this line:
 
 ```json
-"homepage": "https://ThePyroTF2.github.io/DALL-E-2-API",
+"homepage": "https://justDeeevin.github.io/DALL-E-2-API",
 ```
 
 Make the same username change here.
@@ -132,7 +136,7 @@ Make the same username change here.
 On line 2 of `DALL-E.js`, you should see this line:
 
 ```js
-const thisDir = '/Users/Devin/Documents/DALL-E-2-API'
+const thisDir = "/Users/Devin/Documents/DALL-E-2-API";
 ```
 
 Change the path in the string to the path to your `DALL-E-2-API` folder.

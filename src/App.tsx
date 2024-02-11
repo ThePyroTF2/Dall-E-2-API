@@ -39,7 +39,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        fetch('https://raw.githubusercontent.com/ThePyroTF2/DALL-E-2-API/master/src/images.json')
+        fetch('https://raw.githubusercontent.com/justDeeevin/DALL-E-2-API/master/src/images.json')
         .then(res => {
             return res.json()
         })
@@ -55,7 +55,7 @@ const App = () => {
         <div className="App">
             <SearchBar UpdateImagesFunction={updateImages} ImageList={statefulObjectsArray}/>
             <ImageList ImageList={elementsArray}/>
-            <a href="https://github.com/ThePyroTF2/DALL-E-2-API" className="SourceLink">Source code</a>
+            <a href="https://github.com/justDeeevin/DALL-E-2-API" className="SourceLink">Source code</a>
         </div>
     )
 }
